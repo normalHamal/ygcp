@@ -5,7 +5,7 @@
 
 ## 运行在自己的本地服务器
 
-*首先确保你安装了node
+*首先确保你安装了node(最好版本是6.x以上, 因为我的代码依赖一些es6的特性，版本低可能会导致一些错误)
 
 1. Clone or download
 ```
@@ -13,7 +13,16 @@ git clone https://github.com/normalHamal/ygcp
 ```
 2. 安装依赖
 ```
-npm i
+//要是直接npm安装会出现下面的警告 (警告可以忽略, 不是error就行)
+//fsevents 只支持 Darwin, Darwin 是MacOSX操作环境的操作系统成份 在windows上可以无视
+//node-zopfli是一个用来压缩的模块 直接用npm安装会失败 最好加上淘宝的registry
+npm i --registry=https://registry.npm.taobao.org
+```
+![Markdown](http://omsiv11v3.bkt.clouddn.com/error.PNG)
+
+3. 打包生产环境 (调试环境可以直接跳过)
+```
+npm run build
 ```
 3. 运行起来
 ```
@@ -21,7 +30,11 @@ npm start or (node ./server/app)
 ```
 4. 浏览器查看运行结果
 ```
-open localhost:3000
+open localhost:3000(生产环境)
+
+//先运行
+npm run dev
+open localhost:8080(调试环境)
 ```
 ## 效果图展示
 
