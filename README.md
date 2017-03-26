@@ -26,7 +26,7 @@ npm run build
 ```
 3. 运行起来
 ```
-npm start or (node ./server/app)
+npm run start or (node ./server/app)
 ```
 4. 浏览器查看运行结果
 ```
