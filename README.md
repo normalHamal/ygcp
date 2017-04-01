@@ -55,6 +55,5 @@ open localhost:8080(调试环境)
 
 ![Markdown](http://omsiv11v3.bkt.clouddn.com/Z6%7D62~0@J%29L%28%5BIT%600C2%5DLQN.png)
 
-长跑成绩(分上午和下午查看)
-![Markdown](http://omsiv11v3.bkt.clouddn.com/
-ygcp.PNG)
+长跑成绩(分上午和下午查看) <br>
+![Markdown](http://omsiv11v3.bkt.clouddn.com/ygcp.PNG)
