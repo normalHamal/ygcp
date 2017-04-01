@@ -7,6 +7,12 @@
 
 app下载链接 [阳光长跑](http://omsiv11v3.bkt.clouddn.com/ygcp.apk)
 
+## 更新
+
+### 2017.4.1
+
+* 增加查看长跑详细信息功能
+
 ## 运行在自己的本地服务器
 
 *首先确保你安装了node(最好版本是6.x以上, 因为我的代码依赖一些es6的特性，版本低可能会导致一些错误)
@@ -44,7 +50,11 @@ open localhost:8080(调试环境)
 
 ![Markdown](http://omsiv11v3.bkt.clouddn.com/O9%60KTIFNGI%5B%5DJW4PWR4%28%60FS.png)
 
-### 搜索他人(只能搜到那些没改初始密码的人) <br>
+搜索他人(只能搜到那些没改初始密码的人) <br>
 ![Markdown](http://omsiv11v3.bkt.clouddn.com/G4ZG$LU2M9F4DO6J%5B%60EPGDE.png)
 
 ![Markdown](http://omsiv11v3.bkt.clouddn.com/Z6%7D62~0@J%29L%28%5BIT%600C2%5DLQN.png)
+
+长跑成绩(分上午和下午查看)
+![Markdown](http://omsiv11v3.bkt.clouddn.com/
+ygcp.PNG)
