@@ -7,21 +7,21 @@
       	<group v-show="index === 0">
     		<cell v-for="r in afteroon" :title="r.date" :inline-desc="r.mileage">
     			<label class="label-speed" slot="after-title">{{r.speed}}</label>
-    			<x-icon v-if="r.effective" type="ios-checkmark-outline" size="30" slot="value"></x-icon>
-    			<x-icon v-else type="ios-close-outline" size="30" slot="value"></x-icon>
+    			<icon v-if="r.effective" type="success-circle" slot="value"></icon>
+    			<icon v-else type="cancel" slot="value" style="color:red;"></icon>
     		</cell>
 		</group>
       	<group v-show="index === 1">
     		<cell v-for="r in morning" :title="r.date" :inline-desc="r.mileage">
     			<label class="label-speed" slot="after-title">{{r.speed}}</label>
-    			<x-icon v-if="r.effective" type="ios-checkmark-outline" size="30" slot="value"></x-icon>
-    			<x-icon v-else type="ios-close-outline" size="30" slot="value"></x-icon>
+    			<icon v-if="r.effective" type="success-circle" slot="value"></icon>
+    			<icon v-else type="cancel" slot="value" style="color:red;"></icon>
     		</cell>
     	</group>
 	</div>
 </template>
 <script>
-	import { ButtonTab, ButtonTabItem, Cell, Group } from 'vux'
+	import { ButtonTab, ButtonTabItem, Cell, Group, Icon } from 'vux'
 
 	export default {
 	  data() {
@@ -34,7 +34,8 @@
 	    ButtonTab,
 	    ButtonTabItem,
 	    Cell,
-	    Group
+	    Group,
+	    Icon
 	  },
 	  created() {
 	  	this.$http
