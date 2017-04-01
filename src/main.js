@@ -5,6 +5,7 @@ import App from './App'
 import Home from './components/index'
 import Search from './components/search'
 import Profile from './components/profile'
+import Detail from './components/detail'
 import Vuex from 'vuex'
 import { sync } from 'vuex-router-sync'
 import { AjaxPlugin } from 'vux'
@@ -29,6 +30,11 @@ const routes = [
     path: '/profile',
     component: Profile,
     meta: 'profile'
+  },
+  {
+    path: '/detail',
+    component: Detail,
+    meta: '长跑成绩'
   }
 ]
 

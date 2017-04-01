@@ -4,9 +4,19 @@
 	<group>
 		<cell :title="person.name" :value="person.num_school" is-link></cell>
 	</group>
-    <box gap="10px">
-      <x-progress :percent="percent" :show-cancel="false"></x-progress>
-    </box>
+  <box gap="10px">
+    <x-progress :percent="percent" :show-cancel="false"></x-progress>
+  </box>
+  <div style="margin: 10px;overflow: hidden;" @click="toDetail">
+      <masker style="border-radius: 2px;">
+        <div class="m-img" style="background-image:url(http://omsiv11v3.bkt.clouddn.com/4a36acaf2edda3cce8866c9a02e93901213f922e.jpg)"></div>
+        <div slot="content" class="m-title">
+          长跑信息
+          <br/>
+          <span class="m-time">截至{{dateFormat}}</span>
+        </div>
+      </masker>
+  </div>
 	<group title="剩余时间">
       <cell title="剩余时间">
         <clocker time="2017-05-27" slot="value">
@@ -22,7 +32,7 @@
       </cell>
     </group>
     <br>
-	<swiper height="150px" auto loop :interval="2000">
+	<swiper height="150px" auto loop :interval="2000" v-model="index">
       <swiper-item>
       <div style="width:150px;height:150px;margin:0 auto;">
       	<x-circle :percent="percent" :stroke-width="10" stroke-color="#04BE02">
@@ -46,7 +56,7 @@
       </swiper-item>
     </swiper>
     <marquee>
-      <marquee-item v-for="item in items" :key="item.index" class="align-middle">{{item.content}}</marquee-item>
+      <marquee-item v-for="item in items" :key="item.index" class="align-middle">{{items[index].content}}</marquee-item>
     </marquee>
 
     <flexbox orient="vertical">
@@ -118,7 +128,7 @@
 </template>
 
 <script>
-import { Group, Cell, Card, XProgress, Box, XCircle, Swiper, SwiperItem, Clocker, Countup, Marquee, MarqueeItem, Flexbox, FlexboxItem, Search } from 'vux'
+import { Group, Cell, Card, XProgress, Box, XCircle, Swiper, SwiperItem, Clocker, Countup, Marquee, MarqueeItem, Flexbox, FlexboxItem, Search, Masker, dateFormat } from 'vux'
 import { mapState } from 'vuex'
 
 export default {
@@ -137,11 +147,12 @@ export default {
     MarqueeItem,
     Flexbox, 
     FlexboxItem,
-    Search
+    Search,
+    Masker
   },
   data () {
     return {
-      percent: 60,
+      index: 0,
       items: [
       	{ index: 0, content: '总共'},
       	{ index: 1, content: '早上'},
@@ -152,12 +163,21 @@ export default {
   methods: {
   	onFocus() {
   		this.$router.push('/search')
-  	}
+  	},
+    toDetail() {
+      this.$router.push('/detail')
+    }
   },
   computed: {
     ...mapState({
       person: state => state.perInfo.person
-    })
+    }),
+    dateFormat() {
+      return dateFormat(new Date(), 'YYYY-MM-DD')
+    },
+    percent() {
+      return (this.person.num_effective / 22) * 100
+    }
   }
 }
 </script>
@@ -190,5 +210,38 @@ export default {
 }
 .align-middle {
   text-align: center;
+}
+.m-img {
+  padding-bottom: 33%;
+  display: block;
+  position: relative;
+  max-width: 100%;
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.m-title {
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 2px rgba(0, 0, 0, .5);
+  font-weight: 500;
+  font-size: 16px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.m-time {
+  font-size: 12px;
+  padding-top: 4px;
+  border-top: 1px solid #f0f0f0;
+  display: inline-block;
+  margin-top: 5px;
 }
 </style>
