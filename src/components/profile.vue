@@ -102,6 +102,11 @@
 						vm.updatePersonInfo({
 							person: res.data.data
 						})
+						//保存登录后用户的数据
+      					window.localStorage.setItem('user', JSON.stringify({
+      						username: vm.value1,
+      						password: vm.value2
+      					}))
 						this.$router.push('/')
 					} else {
 						this.showError = true
@@ -112,6 +117,7 @@
 				this.updatePersonInfo({
 					person: init
 				})
+				window.localStorage.clear()
 			},
 			...mapMutations(['updatePersonInfo'])
 		},

@@ -61,6 +61,7 @@ store.registerModule('vux', {
   }
 })
 
+const local = window.localStorage
 store.registerModule('perInfo', {
   state: {
     person: init
@@ -71,6 +72,17 @@ store.registerModule('perInfo', {
     }
   }
 })
+let user = JSON.parse(local.getItem('user'))
+if(user) {
+  Vue.http.post('/api/login',{
+    username: user.username,
+    password: user.password
+  }).then((res) => {
+    if(res.data.data) {
+      store.commit('updatePersonInfo', {person: res.data.data})
+    }
+  })
+}
 //把路由和全局状态管理store同步起来
 sync(store, router)
 
