@@ -72,6 +72,17 @@ store.registerModule('perInfo', {
     }
   }
 })
+
+store.registerModule('notice', {
+  state: {
+    show: true
+  },
+  mutations: {
+    updateShow (state, payload) {
+      state.show = payload.show
+    }
+  }
+})
 let user = JSON.parse(local.getItem('user'))
 if(user) {
   Vue.http.post('/api/login',{

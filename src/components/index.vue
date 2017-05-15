@@ -124,14 +124,35 @@
 	    </card>
       </flexbox-item>
     </flexbox>
+
+    <div v-transfer-dom>
+      <x-dialog v-model="show" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '50%', 'background-color': 'transparent'}">
+        <p style="color:#559f70;text-align:center;" @click="updateShow({show : false})">
+          <br>
+          服务器到<br>
+          23号<br>
+          就要<br>
+          倒闭了<br>
+          <emotion is-gif>撇嘴</emotion>
+          <emotion is-gif>抓狂</emotion>
+          <emotion is-gif>撇嘴</emotion>
+          <br>
+          <x-icon type="ios-close-outline" style="fill:#fff;"></x-icon>
+        </p>
+      </x-dialog>
+    </div>
+
   </div>
 </template>
 
 <script>
-import { Group, Cell, Card, XProgress, Box, XCircle, Swiper, SwiperItem, Clocker, Countup, Marquee, MarqueeItem, Flexbox, FlexboxItem, Search, Masker, dateFormat } from 'vux'
-import { mapState } from 'vuex'
+import { Group, Cell, Card, XProgress, Box, XCircle, Swiper, SwiperItem, Clocker, Countup, Marquee, MarqueeItem, Flexbox, FlexboxItem, Search, Masker, dateFormat, XDialog, WechatEmotion as Emotion, TransferDomDirective as TransferDom} from 'vux'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
+  directives: {
+	TransferDom
+  },
   components: {
     Card,
     XProgress,
@@ -148,7 +169,9 @@ export default {
     Flexbox, 
     FlexboxItem,
     Search,
-    Masker
+    Masker,
+    XDialog,
+    Emotion
   },
   data () {
     return {
@@ -166,11 +189,13 @@ export default {
   	},
     toDetail() {
       this.$router.push('/detail')
-    }
+    },
+    ...mapMutations(['updateShow'])
   },
   computed: {
     ...mapState({
-      person: state => state.perInfo.person
+      person: state => state.perInfo.person,
+      show: state => state.notice.show
     }),
     dateFormat() {
       return dateFormat(new Date(), 'YYYY-MM-DD')
