@@ -5,7 +5,7 @@
 
 ## Demo
 
-app下载链接 [阳光长跑](http://omsiv11v3.bkt.clouddn.com/ygcp.apk)
+app下载链接(apk已失效) [阳光长跑](http://omsiv11v3.bkt.clouddn.com/ygcp.apk)
 (密码为学号，如果你没去官网改过的话)
 
 ## 更新
