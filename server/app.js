@@ -32,14 +32,15 @@ app.all('*', (req, res, next) => {
     next()
 })
 
-const getCookie = (username, password, callback) => {
+const getCookie = (username, password, vrf, cookie, callback) => {
 	if(!username || !password) 
 		callback(new Error('args error'))
 	else
 		superagent.post('http://hdu.sunnysport.org.cn/login/')
 			.type('form')
+			.set('Cookie', cookie)
 			.set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36')
-			.send({username: username, password: password})
+			.send({username, password, vrf})
 			.redirects(0)
 			.end((err, res) => {
 				// if(err) console.log(err)
@@ -63,15 +64,17 @@ const getData1 = (cookie, callback) => {
 				let $ = cheerio.load(res.text)
 				let result = {}
 				//此处用箭头函数就会报错，因为此时的this不是回调中的遍历对象
-				let datas = $('label, td').map(function(){
-					return $(this).text()
-				})
-				let info = [].filter.call(datas, function(data) { return !!data });//此处必须要有分号
+				var datas = []
+				$('label, td').each(function() {
+					datas.push($(this).text())
+				});
+				
 				([, result.name, result.num_school, result.sex, , result.course, result.teacher
-					, , , result.total_mileage, , result.average_speed, , result.num_effective
+					, , , , ,result.total_mileage, , result.average_speed, , result.num_effective
 					, , , result.group, , result.min_speed, , result.min_mileage
 					, , , result.reward, , result.punish, , result.finnal 
-				] = info)
+				] = datas)
+
 				callback(null, result)
 			}
 		})
@@ -111,9 +114,14 @@ app.get('/', (req, res) => {
 app.post('/api/login', (req, res) => {
 	async.waterfall([
 			callback => {
-				getCookie(req.body.username, req.body.password, (err, cookie) => {
-					callback(err, cookie)
-				})
+				superagent.get('http://hdu.sunnysport.org.cn/runner/achievements.html')
+					.set('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.98 Safari/537.36')
+					.end((err, res) => {
+						let $ = cheerio.load(res.text)
+						getCookie(req.body.username, req.body.password, $("input[type=hidden]").val(), res.header['set-cookie'], (err, cookie) => {
+							callback(err, cookie)
+						})
+					})
 			},
 			(cookie, callback) => {
 				// 登陆者存储cookie便于浏览其它内容
